@@ -1,5 +1,6 @@
 function [HR] = berger(signal)
-% Use berger algoritm in order to compute HR
+% This function recieves the indexes of R peaks,
+% and uses berger algoritm in order to compute HR, in steady 
 
 % Convert the signal from samples to time
 time_signal = signal/1000;
@@ -15,12 +16,14 @@ fr = 5; % Hz
 t = (0:round(delta_t*fr))./fr + time_signal(1);
 n = zeros(round(delta_t*fr+1),1);
 
+% Create a window around every sample and compute relevant n for every sample
+
 for i = 2:delta_t*fr
 
     window = [t(i-1) t(i+1)];
     
     % Check if there is an R wave in the window
-    R_index = (time_signal>window(1)).*(time_signal<window(2));
+    R_index = (time_signal > window(1)).*(time_signal < window(2));
     
     if sum(R_index)==1
     % There is a R wave in the window    
@@ -47,6 +50,7 @@ for i = 2:delta_t*fr
     
 end
 
+% Use the computed n values to compute HR
 HR = n.*(fr/2);
 
 end
