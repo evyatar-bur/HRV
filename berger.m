@@ -1,14 +1,17 @@
 function [HR] = berger(signal)
-% This function recieves the indexes of R peaks,
-% and uses berger algoritm in order to compute HR, in steady 
+% This function recieves the indexes of R peaks, and uses berger algoritm
+% in order to compute HR, in a steady sample rate of 5 Hz 
+
+% Set original sample frequency
+fs = 1000;
 
 % Convert the signal from samples to time
-time_signal = signal/1000;
+time_signal = signal/fs;
 
 % Length of the signal (Sec)
 delta_t = time_signal(end)-time_signal(1);
 
-% Set sample frequency
+% Set new sample frequency
 fr = 5; % Hz
 
 % Preallocate n and time vector
@@ -35,7 +38,8 @@ for i = 2:delta_t*fr
         n(i) = (b/(r_wave(2)-r_wave(1))) + (c/(r_wave(3)-r_wave(2)));
     
     else
-    %  There is no R wave in the window    
+    % There is no R wave in the window (in assumption that there is at least
+    % 0.2 seconds between every two beats)
         
         R_index = find((time_signal>window(2)));
         

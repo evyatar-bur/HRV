@@ -3,7 +3,7 @@ function [PSD,f] = PSD(HR)
 
 fr = 5;
 
-[PSD,f] = pwelch(HR-mean(HR),[],[],[],fr);
+[PSD,f] = pwelch(HR,200,195,5000,fr);
 
 end
 

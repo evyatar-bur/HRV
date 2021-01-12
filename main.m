@@ -1,4 +1,5 @@
 %% HRV - ex.7
+close all
 clear
 clc
 
@@ -9,8 +10,8 @@ fs = 1000; % Hz
 load('peaks.mat')
 
 % Preallocate cells
-HR = {};
-R_peaks = {};
+HR = cell(1,10);
+R_peaks = cell(1,10);
 
 figure(1)
 
@@ -114,7 +115,8 @@ for i = 1:10
         title('Rest PSD')
         xlabel('Frequency (Hz)')
         ylabel('PSD')
-        xlim([0 0.5])
+        xlim([0.04 0.5])
+        ylim([0 0.15])
         
         hold on
         
@@ -123,7 +125,8 @@ for i = 1:10
         title('stress PSD')
         xlabel('Frequency (Hz)')
         ylabel('PSD')
-        xlim([0 0.5])
+        xlim([0.04 0.5])
+        ylim([0 0.15])
         
         hold on
         
